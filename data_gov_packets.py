@@ -84,6 +84,8 @@ for y in publisher_data["result"]:
     #   Build another query and go get the link
     #   to the actual data.
     #   ie. "b1f2f7be-d024-425f-b6ff-5d8f45d86738"
+
+   
     
     url_3 = "http://data.gov.uk/api/3/action/package_show?id=" + publisher_package_id
     http_3= urllib3.PoolManager()
@@ -98,8 +100,18 @@ for y in publisher_data["result"]:
     publisher_actual_data = json.load(data_file_3)
 
 
+    # *******************  loop through publisher Data  ******
+    print("********   loop through publishers package ID   ************")
+    cntr_3=0
+    for z in publisher_actual_data["resources"] :
 
+        if cntr_3 > 5:  # normally there is only on link to the data
+            break
 
+            publisher_data_url= publisher_actual_data["result"]["packages"][cntr_3]["url"]
+            print("publisher_package_id = ", publisher_data_url)
+
+            cntr += 1
     
 
 
@@ -125,7 +137,8 @@ for y in publisher_data["result"]:
     output_line = output_line + publisher_package_id        + spacer
     output_line = output_line + publisher_package_link      + spacer
 
-    output_line = output_line + publisher_package_name    #  end
+    output_line = output_line + publisher_package_name      + spacer
+    output_line = output_line + publisher_data_url          #  end
 
     print(output_line, file=outputfile)
     
