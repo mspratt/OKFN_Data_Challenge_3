@@ -96,6 +96,7 @@ for y in publisher_data["result"]:
     print("    ")
     f_3 = open("publisher_package_id.json", 'wb')
     f_3.write(page_returned_3.data)
+    
     with open(f_3) as data_file_3:    
     publisher_actual_data = json.load(data_file_3)
 
