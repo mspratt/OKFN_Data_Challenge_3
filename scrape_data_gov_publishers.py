@@ -88,7 +88,7 @@ for x in organization_data["result"] :
      #if __name__ == '__main__': 
      #python data_gov_packets
 
-     #os.system("data_gov_packets.py")
+     os.system("data_gov_packets.py")
      #********************************
      # delete the current publisher file
      #
