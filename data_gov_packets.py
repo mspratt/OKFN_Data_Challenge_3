@@ -85,9 +85,9 @@ for y in publisher_data["result"]:
     #  start writing one record with all the required elements
 
     output_line =''
-    spacer = '","'
+    spacer = ','
     
-    output_line =   '"'       + publisher_title     + spacer       # beginning
+    output_line = output_line + publisher_title     + spacer       # beginning
 
     output_line = output_line + publisher_type      + spacer
     output_line = output_line + publisher_web_site  + spacer
@@ -99,7 +99,7 @@ for y in publisher_data["result"]:
     output_line = output_line + publisher_package_id        + spacer
     output_line = output_line + publisher_package_link      + spacer
 
-    output_line = output_line + publisher_package_name    + '"'       #  end
+    output_line = output_line + publisher_package_name    #  end
 
     print(output_line, file=outputfile)
     
