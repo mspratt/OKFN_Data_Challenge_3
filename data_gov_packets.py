@@ -108,7 +108,7 @@ for y in publisher_data["result"]:
         if cntr_3 > 5:  # normally there is only on link to the data
             break
 
-            publisher_data_url= publisher_actual_data["result"]["packages"][cntr_3]["url"]
+            publisher_data_url= publisher_actual_data["result"]["resources"][cntr_3]["url"]
             print("publisher_package_id = ", publisher_data_url)
 
             cntr += 1
