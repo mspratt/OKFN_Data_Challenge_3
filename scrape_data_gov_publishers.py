@@ -35,6 +35,10 @@ where is the version no?  - it show up in the committed list
 import sys, os, urllib3, json, html
 #import data_gov_packets
 
+# write to the csv file
+outputfile = open("data_gov_publisher_results.csv", 'w')
+
+
 #*********************   get the orgainsation list
 
 url_0 = "http://data.gov.uk/api/3/action/organization_list"
@@ -84,6 +88,65 @@ for x in organization_data["result"] :
      #********************************
      #  go read through all the packets
      #  for this publisher
+
+
+    
+     with open(publisher_returned) as data_file_2: 
+            publisher_data = json.load(data_file_2)
+
+
+     #_______________________________
+     #  retrieve one-time elements.
+
+     publisher_title     = publisher_data["result"]["title"]
+     publisher_type      = publisher_data["result"]["type"]
+     publisher_web_site  = publisher_data["result"]["foi-web"]
+     publisher_email     = publisher_data["result"]["foi-email"]
+     publisher_category  = publisher_data["result"]["category"]
+     publisher_id        = publisher_data["result"]["id"]
+
+     #  approval_status, phone numbers, etc. ??
+     cntr_2 = 0
+     for y in publisher_data["result"]:
+
+         if cntr_2 > 5:
+             break
+
+         #****************************************
+         #  create an output line, element by element
+         #  next time I'm going to print using
+         #  just publisher_data["result"]["packages"][0]["title"]
+
+         print("publisher_returned = ", publisher_returned)   
+         print("publisher_type     = ", publisher_type)
+
+         #.....................
+         #  packets
+
+         publisher_package_title = publisher_data["result"]["packages"][cntr_2]["title"]
+         print("publisher_title = ", publisher_title)
+
+         publisher_package_id = publisher_data["result"]["packages"][cntr_2]["id"]
+         print("publisher_package_id = ", publisher_id)
+
+         publisher_package_link = "http://data.gov.uk/api/3/action/package_show?id=" + publisher_package_id
+         print ("publisher_package_link = ",  publisher_package_link)
+   
+         publisher_package_name= publisher_data["result"]["packages"][cntr_2]["name"]
+         print("publisher_package_name = ", publisher_package_name)
+
+
+
+
+
+
+
+
+
+
+
+
+     
      
      #if __name__ == '__main__': 
      #python data_gov_packets
