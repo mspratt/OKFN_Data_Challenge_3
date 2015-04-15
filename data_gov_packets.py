@@ -80,6 +80,32 @@ for y in publisher_data["result"]:
     print("publisher_package_name = ", publisher_package_name)
 
 
+    #**************************************************
+    #   Build another query and go get the link
+    #   to the actual data.
+    #   ie. "b1f2f7be-d024-425f-b6ff-5d8f45d86738"
+    
+    url_3 = "http://data.gov.uk/api/3/action/package_show?id=" + publisher_package_id
+    http_3= urllib3.PoolManager()
+    page_returned_3 = http_3.request('GET', url_3)
+
+    print("page returned=", page_returned_3)
+    print("page status  =", page_returned_3.status)
+    print("    ")
+    f_3 = open("publisher_package_id.json", 'wb')
+    f_3.write(page_returned_3.data)
+    with open(f_3) as data_file_3:    
+    publisher_actual_data = json.load(data_file_3)
+
+
+
+
+    
+
+
+
+
+
 
     #**************************************************
     #  start writing one record with all the required elements
