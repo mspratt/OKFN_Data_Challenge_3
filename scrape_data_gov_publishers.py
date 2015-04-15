@@ -33,7 +33,7 @@ where is the version no?  - it show up in the committed list
 #*************************************************
 #  Initialize
 import sys, os, urllib3, json, html
-import data_gov_packets
+#import data_gov_packets
 
 #*********************   get the orgainsation list
 
@@ -86,7 +86,7 @@ for x in organization_data["result"] :
      #  for this publisher
      
      #if __name__ == '__main__': 
-     python data_gov_packets
+     #python data_gov_packets
 
      #os.system("data_gov_packets.py")
      #********************************
