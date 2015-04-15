@@ -83,18 +83,22 @@ for x in organization_data["result"] :
      f_1 = open(publisher_name + ".json", 'wb')
      f_1.write(publisher_returned.data)
 
+     test_1 = publisher_returned.data
      cntr += 1
 
      #********************************
      #  go read through all the packets
      #  for this publisher
 
-
-    
-     with open(publisher_returned) as data_file_2: 
+     with open(test_1.data) as data_file_2: 
             publisher_data = json.load(data_file_2)
 
+     
+     # with open(publisher_returned) as data_file_2: 
+     #        publisher_data = json.load(data_file_2)
 
+     #publisher_data = json.load(f_1)
+                           
      #_______________________________
      #  retrieve one-time elements.
 
