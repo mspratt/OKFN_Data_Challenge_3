@@ -84,7 +84,6 @@ for x in organization_data["result"] :
      f_1.write(publisher_returned.data)
      f_1.close()
 
-     test_1 = publisher_name + ".json"
      cntr += 1
 
      #********************************
@@ -104,7 +103,7 @@ for x in organization_data["result"] :
      publisher_category  = publisher_data["result"]["category"]
      publisher_id        = publisher_data["result"]["id"]
 
-     #  approval_status, phone numbers, etc. ??
+     #  Any thing else ie.  approval_status, phone numbers, etc. ??
 
      #****************************************************
      #  look through the Publisher site for pointers
@@ -115,14 +114,19 @@ for x in organization_data["result"] :
 
          if cntr_2 > 5:
              break
-
-         if "title" in publisher_data:
+          
+         """
+         if "packages" in publisher_data:    #"packages" 
              continue
          else:
              break
          
-
-         
+        
+          if publisher_data.has_key('packages'):
+             continue
+         else:
+             break
+         """
          #****************************************
          #  create an output line, element by element
          #  next time I'm going to print using
@@ -207,7 +211,7 @@ for x in organization_data["result"] :
 
              print(output_line, file=outputfile)
     
-             print("******** got link to data file  ************")
+             #print("******** got link to data file  ************")
          # ***********  E N D  ***  loop through publisher Data  ******
 
     
