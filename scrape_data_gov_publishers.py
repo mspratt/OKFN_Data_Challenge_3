@@ -40,7 +40,9 @@ page_returned_0 = http_0.request('GET', url_0)
 
 #print("page returned=", page_returned_0)
 #print("page status  =", page_returned_0.status)
-print("    ")
+#print("    ")
+
+
 f = open("organization_list.json", 'wb')
 f.write(page_returned_0.data)
 
@@ -48,7 +50,8 @@ f.write(page_returned_0.data)
 with open('organization_list.json') as data_file_0:    
     organization_data = json.load(data_file_0)
 
-
+f.close()
+os.remove("organization_list.json")
 
 # *******************  loop through publisher   ******
 print("********   loop through publishers   ************")
@@ -59,10 +62,11 @@ for x in organization_data["result"] :
 
      publisher_name = organization_data["result"][cntr]
 
-     publisher_name = "2gether-nhs-foundation-trust"
+     #**********  for testing  *************************
+     #publisher_name = "2gether-nhs-foundation-trust"
      #publisher_name = "aberdeen-city-council"
      #publisher_name = "adur-district-council"
-
+     #***************************************************
  
      url_1 = "http://data.gov.uk/api/3/action/organization_show?id="+ publisher_name
      http_1 = urllib3.PoolManager()
@@ -90,9 +94,11 @@ for x in organization_data["result"] :
      with open(publisher_name + ".json") as data_file_2: 
             publisher_data = json.load(data_file_2)
 
+        
+     #********************************
+     # delete the current publisher file
+     os.remove(publisher_name + ".json")     # delete the publisher's source file
 
-     os.remove(publisher_name + ".json")     # delete the publisher's file
-     
      #_______________________________
      #  retrieve one-time publisher elements.
 
@@ -110,13 +116,13 @@ for x in organization_data["result"] :
      #  does this organisation publish anything?
 
      if len(publisher_data["result"]["packages"]) == 0:    #"result""packages" 
-          print ("len of packages = 0")
+          print ("No publications")
           continue
 
 
      #****************************************************
      #  look through the Publisher's site for pointers
-     #   via the publisher_id key
+     #  to the data, via the publisher_id key
      print("    ")
      cntr_2 = 0
      for y in publisher_data["result"]:
@@ -160,8 +166,9 @@ for x in organization_data["result"] :
          page_returned_3 = http_3.request('GET', url_3)
 
          print("page returned=", page_returned_3)
-         print("page status  =", page_returned_3.status)
+         #print("page status  =", page_returned_3.status)
          print("    ")
+
          f_3 = open("publisher_package_id.json", 'wb')
          f_3.write(page_returned_3.data)
          f_3.close()
@@ -179,7 +186,7 @@ for x in organization_data["result"] :
          if printheader == 1:
               printheader = 0  # false  we only need to print the header once
               header = "Data Source URL, Publisher Title, Package Name, Type, Site URL, email,"
-              header = header + "Type(category), Publisher ID, Package Title, Package ID, Package URL"
+              header = header + "Category), Publisher ID, Package Title, Package ID, Package URL"
               print(header, file=outputfile)
          
          #**************************************************
@@ -210,16 +217,10 @@ for x in organization_data["result"] :
          print(output_line, file=outputfile)
          #print("  ", file=outputfile)
 
-    
-     
-     #********************************
-     # delete the current publisher file
-     #
-     #  But, not yet there are only 5
-
+ 
      cntr_2 += 1
     
 print ("end of packets")
 outputfile.close()
-     
+
      
