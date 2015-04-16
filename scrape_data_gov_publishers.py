@@ -121,7 +121,7 @@ for x in organization_data["result"] :
         
      #********************************
      # delete the current publisher file
-     #os.remove(publisher_name + ".json")     # delete the publisher's source file
+     os.remove(publisher_name + ".json")     # delete the publisher's source file
 
      #_______________________________
      #  retrieve one-time publisher elements.
