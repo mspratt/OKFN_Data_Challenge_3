@@ -1,7 +1,7 @@
 # OKFN_Data_Challenge_3
 Project to scrap UK spending data
 
-This is a Python project to scrap and spider dtat.gov.uk
+This is a Python project to scrap and spider data.gov.uk
 run the 
 scrape_data_gov_publishers.py program.
 
