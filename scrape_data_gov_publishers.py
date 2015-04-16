@@ -75,11 +75,14 @@ for x in organization_data["result"] :
      # these publishers have problems with
      # my code....
 
-     if publisher_name == "agri-food-and-biosciences-institute":
-          continue   
      if publisher_name == "air-accident-investigation-branch":
           continue   
      if publisher_name == "animal-health-and-veterinary-laboratories-agency":
+          continue   
+
+
+     """  foi-web tag missing
+     if publisher_name == "agri-food-and-biosciences-institute":
           continue   
      if publisher_name == "appointments-commission":
           continue
@@ -89,7 +92,7 @@ for x in organization_data["result"] :
           continue     
      if publisher_name == "birmingham-childrens-nhs-foundation-trust":
           continue    
-
+     """
 
 
      url_1 = "http://data.gov.uk/api/3/action/organization_show?id="+ publisher_name
