@@ -85,9 +85,10 @@ for x in organization_data["result"] :
           continue
      if publisher_name == "architects-registration-board":
           continue
-     if publisher_name == "abelfast-city-council":
+     if publisher_name == "belfast-city-council":
           continue     
-
+     if publisher_name == "birmingham-childrens-nhs-foundation-trust":
+          continue    
 
 
 
@@ -129,8 +130,8 @@ for x in organization_data["result"] :
      publisher_title     = publisher_data["result"]["title"]
      publisher_type      = publisher_data["result"]["type"]
 
-     publisher_web_site  = publisher_data["result"]["foi-web"]
-     #publisher_web_site  = "fixing foi-xeb bug"
+     #publisher_web_site  = publisher_data["result"]["foi-web"]
+     publisher_web_site  = ""
 
      publisher_email     = publisher_data["result"]["foi-email"]
 
