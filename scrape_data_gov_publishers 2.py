@@ -10,15 +10,22 @@ list we create a new url string by concatenating
 "http://data.gov.uk/api/3/action/organization_show?id="
 with the publisher_name.
 
-With this new query we then access the site again and save
+With this new querry we then access the site again and save
 the publsiher's data to new json file.
 We read through the new json file on "packages in order to get the
 title, id and name of the publication.
 
-
-
 We then create the output file
 
+the application is divided (for the moment) into 3 seperate python files
+data_gov_publishers
+                   data_gov_packets
+                                   data_gov_output
+   
+Do these changes showup in GIT??  YES they did
+whoooo -cool !!  super cool - no?
+
+where is the version no?  - it show up in the committed list
 
 """
 
@@ -30,7 +37,7 @@ import sys, os, urllib3, json, html
 
 # write to the csv file
 outputfile = open("data_gov_publisher_results.csv", 'w')
-printheader = 1  #true
+
 
 #*********************   get the orgainsation list
 
@@ -59,9 +66,8 @@ for x in organization_data["result"] :
 
      publisher_name = organization_data["result"][cntr]
 
-     publisher_name = "2gether-nhs-foundation-trust"
-     #publisher_name = "aberdeen-city-council"
-     #publisher_name = "adur-district-council"
+
+     publisher_name = "aberdeen-city-council"
 
  
      url_1 = "http://data.gov.uk/api/3/action/organization_show?id="+ publisher_name
@@ -73,6 +79,7 @@ for x in organization_data["result"] :
      print("page status     =", publisher_returned.status)
      #print("page returned   =", publisher_returned )
      #print("page data=",(publisher_returned.data))
+     print("    ")
 
 
      #****************************************
@@ -90,9 +97,6 @@ for x in organization_data["result"] :
      with open(publisher_name + ".json") as data_file_2: 
             publisher_data = json.load(data_file_2)
 
-
-     os.remove(publisher_name + ".json")     # delete the publisher's file
-     
      #_______________________________
      #  retrieve one-time publisher elements.
 
@@ -103,28 +107,30 @@ for x in organization_data["result"] :
      publisher_category  = publisher_data["result"]["category"]
      publisher_id        = publisher_data["result"]["id"]
 
-     #  Do you want anything else ie.  approval_status, phone numbers, etc. ??
-     
-
-     #***************************************************
-     #  does this organisation publish anything?
-
-     if len(publisher_data["result"]["packages"]) == 0:    #"result""packages" 
-          print ("len of packages = 0")
-          continue
-
+     #  Any thing else ie.  approval_status, phone numbers, etc. ??
 
      #****************************************************
-     #  look through the Publisher's site for pointers
-     #   via the publisher_id key
-     print("    ")
+     #  look through the Publisher site for pointers
+     #   ia the publisher_id key
+     
      cntr_2 = 0
      for y in publisher_data["result"]:
 
          if cntr_2 > 5:
              break
+          
 
-
+         if "packages" in publisher_data:    #"packages" 
+             continue
+         else:
+             break
+         
+         """        
+          if publisher_data.has_key('packages'):
+             continue
+         else:
+             break
+         """
          #****************************************
          #  create an output line, element by element
          #  next time I'm going to print using
@@ -133,26 +139,28 @@ for x in organization_data["result"] :
          print("publisher_returned = ", publisher_returned)   
          print("publisher_type     = ", publisher_type)
 
-         
          #.....................
          #  packets
 
          publisher_package_title = publisher_data["result"]["packages"][cntr_2]["title"]
-         publisher_package_id    = publisher_data["result"]["packages"][cntr_2]["id"]
-         publisher_package_link  = "http://data.gov.uk/api/3/action/package_show?id=" + publisher_package_id
-         publisher_package_name  = publisher_data["result"]["packages"][cntr_2]["name"]
-
-         """
          print("publisher_title = ", publisher_title)
+
+         publisher_package_id = publisher_data["result"]["packages"][cntr_2]["id"]
          print("publisher_package_id = ", publisher_id)
+
+         publisher_package_link = "http://data.gov.uk/api/3/action/package_show?id=" + publisher_package_id
          print ("publisher_package_link = ",  publisher_package_link)
+   
+         publisher_package_name= publisher_data["result"]["packages"][cntr_2]["name"]
          print("publisher_package_name = ", publisher_package_name)
-         """
+
+
 
          #**************************************************
          #   Build another query and go get the link
          #   to the actual data.
          #   ie. "b1f2f7be-d024-425f-b6ff-5d8f45d86738"
+
    
     
          url_3 = "http://data.gov.uk/api/3/action/package_show?id=" + publisher_package_id
@@ -170,45 +178,45 @@ for x in organization_data["result"] :
               publisher_actual_data = json.load(data_file_3)
 
 
-         publisher_data_url= publisher_actual_data["result"]["resources"][0]["url"]
-         print("publisher_package_id = ", publisher_data_url)
+         # *******************  loop through publisher Data  ******
+         print("********   loop through publishers package ID   ************")
+         cntr_3=0
+         for z in publisher_actual_data["result"] :
 
-         #**************************************************
-         #  sPrint a header record for the BSV file
+             if cntr_3 > 5:  # normally there is only on link to the data
+                 break
 
-         if printheader == 1:
-              printheader = 0  # false  we only need to print the header once
-              header = "Data Source URL, Publisher Title, Package Name, Type, Site URL, email,"
-              header = header + "Type(category), Publisher ID, Package Title, Package ID, Package URL"
-              print(header, file=outputfile)
-         
-         #**************************************************
-         #  start writing one record with all the required elements
+             publisher_data_url= publisher_actual_data["result"]["resources"][cntr_3]["url"]
+             print("publisher_package_id = ", publisher_data_url)
 
-         output_line =''
-         spacer = ', '
-
-         # beginning
+             cntr_3 += 1
     
-         output_line = output_line + publisher_data_url  + spacer
-         output_line = output_line + publisher_title     + spacer       
-         output_line = output_line + publisher_package_name    + spacer
-             
-         output_line = output_line + publisher_type      + spacer
-         output_line = output_line + publisher_web_site  + spacer
-         output_line = output_line + publisher_email     + spacer
-         output_line = output_line + publisher_category  + spacer
-         output_line = output_line + publisher_id        + spacer
 
-         output_line = output_line + publisher_package_title     + spacer
-         output_line = output_line + publisher_package_id        + spacer
-         output_line = output_line + publisher_package_link   
+             #**************************************************
+             #  start writing one record with all the required elements
 
+             output_line =''
+             spacer = ','
+    
+             output_line = output_line + publisher_title     + spacer       # beginning
 
-         #  end
+             output_line = output_line + publisher_type      + spacer
+             output_line = output_line + publisher_web_site  + spacer
+             output_line = output_line + publisher_email     + spacer
+             output_line = output_line + publisher_category  + spacer
+             output_line = output_line + publisher_id        + spacer
 
-         print(output_line, file=outputfile)
-         #print("  ", file=outputfile)
+             output_line = output_line + publisher_package_title     + spacer
+             output_line = output_line + publisher_package_id        + spacer
+             output_line = output_line + publisher_package_link      + spacer
+
+             output_line = output_line + publisher_package_name      + spacer
+             output_line = output_line + publisher_data_url          #  end
+
+             print(output_line, file=outputfile)
+    
+             #print("******** got link to data file  ************")
+         # ***********  E N D  ***  loop through publisher Data  ******
 
     
      
