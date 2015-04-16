@@ -57,7 +57,7 @@ os.remove("organization_list.json")
 print("********   loop through publishers   ************")
 cntr=0
 for x in organization_data["result"] :
-     if cntr > 50:  # get only the first 25 publishers
+     if cntr > 150:  # get only the first 25 publishers
          break
 
      publisher_name = organization_data["result"][cntr]
@@ -76,19 +76,18 @@ for x in organization_data["result"] :
      # my code....
 
      if publisher_name == "agri-food-and-biosciences-institute":
-          continue
-     
+          continue   
      if publisher_name == "air-accident-investigation-branch":
-          continue
-     
+          continue   
      if publisher_name == "animal-health-and-veterinary-laboratories-agency":
-          continue
-     
+          continue   
      if publisher_name == "appointments-commission":
           continue
      if publisher_name == "architects-registration-board":
           continue
-     
+     if publisher_name == "abelfast-city-council":
+          continue     
+
 
 
 
