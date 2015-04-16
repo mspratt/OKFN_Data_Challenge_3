@@ -6,6 +6,16 @@ run the scrape_data_gov_publishers.py program.
 
 The output is to data_gov_publisher_results.csv
 
+Before I finish the program I need to ask several questions?
+  1st is this what you are looking for?
+  2nd what other data do you want?  (I haven't saved any of the dates and someother elements yet)
+  3rd is the CSV file in the "right" format, element titles, sequence in the output line, etc?
+
+The program does a lot of printing to the screen but that
+is mostly for me to see how it is executing.
+
+I stop processing after the first 25 publishers
+
 I'm a beginning Python programmer and had to learn the API, json, Git
 and a few other "technical" tools.
 
