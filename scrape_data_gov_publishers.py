@@ -65,6 +65,10 @@ for x in organization_data["result"] :
          break
 
      publisher_name = organization_data["result"][cntr]
+
+
+     #publisher_name = "aberdeen-city-council"
+
  
      url_1 = "http://data.gov.uk/api/3/action/organization_show?id="+ publisher_name
      http_1 = urllib3.PoolManager()
@@ -75,7 +79,7 @@ for x in organization_data["result"] :
      print("page status     =", publisher_returned.status)
      #print("page returned   =", publisher_returned )
      #print("page data=",(publisher_returned.data))
-     print("    ")
+
 
 
      #****************************************
@@ -104,29 +108,28 @@ for x in organization_data["result"] :
      publisher_id        = publisher_data["result"]["id"]
 
      #  Any thing else ie.  approval_status, phone numbers, etc. ??
+     
+
+     #***************************************************
+     #  does this organisation publish anything?
+
+     if "help" not in publisher_data:    #"packages" 
+         print ("no packages")
+         print (publisher_data)
+         continue
+
 
      #****************************************************
      #  look through the Publisher site for pointers
-     #   ia the publisher_id key
-     
+     #   via the publisher_id key
+     print("    ")
      cntr_2 = 0
      for y in publisher_data["result"]:
 
          if cntr_2 > 5:
              break
           
-         """
-         if "packages" in publisher_data:    #"packages" 
-             continue
-         else:
-             break
-         
-        
-          if publisher_data.has_key('packages'):
-             continue
-         else:
-             break
-         """
+
          #****************************************
          #  create an output line, element by element
          #  next time I'm going to print using
