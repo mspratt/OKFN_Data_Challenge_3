@@ -17,10 +17,14 @@ is mostly for me to see how it is executing.
 
 I stop processing after the first 25 publishers
 
-Some publisher like the agri-food-and-biosciences-institute don't have the same json
+Some publisher like the 
+agri-food-and-biosciences-institute don't have the same json
 format as the other publishers.  This publisher doen't have a key "foi-web" which is a url to their site.
 For now I'll just cooment out the line but latter I'll test for the presents of keys
 
+air-accident-investigation-branch also has a unique structure for it's packets.  It doesn't have a 
+"result"]["resources"][0]["url"] key.  Why?  The publisher points to this data package, but the json structure
+for this publisher doesn( have the key...
 
 I'm a beginning Python programmer and had to learn the API, json, Git
 and a few other "technical" tools.
