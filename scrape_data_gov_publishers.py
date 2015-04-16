@@ -57,7 +57,7 @@ os.remove("organization_list.json")
 print("********   loop through publishers   ************")
 cntr=0
 for x in organization_data["result"] :
-     if cntr > 5:  # get only the first 5 publishers
+     if cntr > 50:  # get only the first 25 publishers
          break
 
      publisher_name = organization_data["result"][cntr]
@@ -66,13 +66,38 @@ for x in organization_data["result"] :
      #publisher_name = "2gether-nhs-foundation-trust"
      #publisher_name = "aberdeen-city-council"
      #publisher_name = "adur-district-council"
+     #publisher_name = "agri-food-and-biosciences-institute"
+     #publisher_name = "air-accident-investigation-branch"
      #***************************************************
- 
+     cntr += 1
+     
+     #------------------------------------
+     # these publishers have problems with
+     # my code....
+
+     if publisher_name == "agri-food-and-biosciences-institute":
+          continue
+     
+     if publisher_name == "air-accident-investigation-branch":
+          continue
+     
+     if publisher_name == "animal-health-and-veterinary-laboratories-agency":
+          continue
+     
+     if publisher_name == "appointments-commission":
+          continue
+     if publisher_name == "architects-registration-board":
+          continue
+     
+
+
+
      url_1 = "http://data.gov.uk/api/3/action/organization_show?id="+ publisher_name
      http_1 = urllib3.PoolManager()
      publisher_returned = http_1.request('GET', url_1)
 
-     print("publisher number=", cntr)
+     print("*************************************************************")
+     print("publisher number=", cntr-1)
      print("publisher name  =", publisher_name)
      print("page status     =", publisher_returned.status)
      #print("page returned   =", publisher_returned )
@@ -85,7 +110,7 @@ for x in organization_data["result"] :
      f_1.write(publisher_returned.data)
      f_1.close()
 
-     cntr += 1
+     
 
      #********************************
      #  go read through all the packets
@@ -97,15 +122,19 @@ for x in organization_data["result"] :
         
      #********************************
      # delete the current publisher file
-     os.remove(publisher_name + ".json")     # delete the publisher's source file
+     #os.remove(publisher_name + ".json")     # delete the publisher's source file
 
      #_______________________________
      #  retrieve one-time publisher elements.
 
      publisher_title     = publisher_data["result"]["title"]
      publisher_type      = publisher_data["result"]["type"]
+
      publisher_web_site  = publisher_data["result"]["foi-web"]
+     #publisher_web_site  = "fixing foi-xeb bug"
+
      publisher_email     = publisher_data["result"]["foi-email"]
+
      publisher_category  = publisher_data["result"]["category"]
      publisher_id        = publisher_data["result"]["id"]
 
@@ -116,7 +145,7 @@ for x in organization_data["result"] :
      #  does this organisation publish anything?
 
      if len(publisher_data["result"]["packages"]) == 0:    #"result""packages" 
-          print ("No publications")
+          print ("No publications - WHAT?")
           continue
 
 
@@ -127,9 +156,9 @@ for x in organization_data["result"] :
      cntr_2 = 0
      for y in publisher_data["result"]:
 
-         if cntr_2 > 5:
-             break
-
+         #if cntr_2 > 5:
+         #    break
+         #cntr_2 += 1
 
          #****************************************
          #  create an output line, element by element
@@ -176,12 +205,15 @@ for x in organization_data["result"] :
          with open("publisher_package_id.json") as data_file_3:    
               publisher_actual_data = json.load(data_file_3)
 
-
+         # ---------------------------------
+         #  I need a conditional to verify that the
+         #  publisher actually has a resources url
+         #  
          publisher_data_url= publisher_actual_data["result"]["resources"][0]["url"]
          print("publisher_package_id = ", publisher_data_url)
 
          #**************************************************
-         #  sPrint a header record for the BSV file
+         #  sPrint a header record for the CSV file
 
          if printheader == 1:
               printheader = 0  # false  we only need to print the header once
@@ -218,7 +250,7 @@ for x in organization_data["result"] :
          #print("  ", file=outputfile)
 
  
-     cntr_2 += 1
+     
     
 print ("end of packets")
 outputfile.close()
