@@ -113,10 +113,21 @@ for x in organization_data["result"] :
      #***************************************************
      #  does this organisation publish anything?
 
-     if "help" not in publisher_data:    #"packages" 
-         print ("no packages")
-         print (publisher_data)
-         continue
+     #if "packages" not in publisher_data:    #"result""packages" 
+     #    print ("no packages")
+     #    print (publisher_data)
+     #    continue
+
+     #if publisher_data["result"]["packages"][0] != 1:    #"result""packages" 
+     #     print ("no packages")
+     #     #print (publisher_data)
+     #     break
+
+
+     if len(publisher_data["result"]["packages"]) == 0:    #"result""packages" 
+          print ("len of packages = 0")
+          continue
+
 
 
      #****************************************************
@@ -128,7 +139,8 @@ for x in organization_data["result"] :
 
          if cntr_2 > 5:
              break
-          
+
+
 
          #****************************************
          #  create an output line, element by element
