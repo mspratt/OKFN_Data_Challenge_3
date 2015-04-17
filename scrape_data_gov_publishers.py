@@ -29,7 +29,7 @@ import sys, os, urllib3, json, html
 #import data_gov_packets
 
 # write to the csv file
-outputfile = open("data_gov_publisher_results.csv", 'w')
+outputfile = open("data_gov_publisher_results.csv", 'a')
 printheader = 1  #true
 
 #*********************   get the orgainsation list
@@ -73,16 +73,22 @@ for x in organization_data["result"] :
      #***************************************************
 
 
-     #if cntr <= 105:    #  to skip to a certain record
-     #    continue
+     if cntr <= 1307:    #  to skip to a certain record
+         continue
 
 
       
   
      #------------------------------------
      # these publishers have problems with
-     # my code.... 
+     # my code.... they point to a data set,
+     # but once we access there is no data...
+     #
+     #  I thought there were only going to be a few
+     #  if I had know I would have written the
+     #  conditional that checks for this...
 
+     """
      if publisher_name == "air-accident-investigation-branch":
           continue   
      if publisher_name == "animal-health-and-veterinary-laboratories-agency":
@@ -211,10 +217,42 @@ for x in organization_data["result"] :
           continue
      if publisher_name == "rsecurity-industry-authority":
           continue
+     if publisher_name == "security-industry-authority":
+          continue
+     if publisher_name == "service-personnel-and-veterans-agency":
+          continue
 
+     if publisher_name == "sport-england":
+          continue
+     if publisher_name == "standards-and-testing-agency":
+          continue
+     if publisher_name == "stockton-on-tees-borough-council":
+          continue
+     if publisher_name == "teignbridge-district-council":
+          continue
+     if publisher_name == "the-food-and-environment-research-agency":
+          continue
+     if publisher_name == "the-northern-lighthouse-board":
+          continue
+     if publisher_name == "the-pensions-regulator":
+          continue
+     if publisher_name == "valuation-office-agency":
+          continue
+     if publisher_name == "vehicle-and-operator-services-agency":
+          continue
+     if publisher_name == "vehicle-certification-agency":
+          continue
+     if publisher_name == "visit-england":
+          continue
+     if publisher_name == "westminster-foundation-for-democracy":
+          continue
+     if publisher_name == "wilton-park-executive-agency":
+          continue
 
-
-
+     """
+    
+     if publisher_name == "wolverton-and-greenleys-town-council":
+          continue
 
      """  foi-web tag missing
      if publisher_name == "agri-food-and-biosciences-institute":
