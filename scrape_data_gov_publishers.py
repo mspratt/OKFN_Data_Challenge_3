@@ -73,21 +73,23 @@ for x in organization_data["result"] :
      
      #------------------------------------
      # these publishers have problems with
-     # my code....
+     # my code.... 
 
      if publisher_name == "air-accident-investigation-branch":
           continue   
      if publisher_name == "animal-health-and-veterinary-laboratories-agency":
           continue   
+     if publisher_name == "appointments-commission":
+          continue
+     if publisher_name == "architects-registration-board":
+          continue
+     if publisher_name == "british-film-institute":
+          continue
 
 
      """  foi-web tag missing
      if publisher_name == "agri-food-and-biosciences-institute":
           continue   
-     if publisher_name == "appointments-commission":
-          continue
-     if publisher_name == "architects-registration-board":
-          continue
      if publisher_name == "belfast-city-council":
           continue     
      if publisher_name == "birmingham-childrens-nhs-foundation-trust":
