@@ -53,15 +53,17 @@ with open('organization_list.json') as data_file_0:
 f.close()
 os.remove("organization_list.json")
 
+
 # *******************  loop through publisher   ******
 print("********   loop through publishers   ************")
 cntr=0
 for x in organization_data["result"] :
-     if cntr > 150:  # get only the first 25 publishers
-         break
+     #if cntr > 150:  # get only the first 25 publishers
+         #break
 
      publisher_name = organization_data["result"][cntr]
-
+     cntr += 1
+     
      #**********  for testing  *************************
      #publisher_name = "2gether-nhs-foundation-trust"
      #publisher_name = "aberdeen-city-council"
@@ -69,8 +71,14 @@ for x in organization_data["result"] :
      #publisher_name = "agri-food-and-biosciences-institute"
      #publisher_name = "air-accident-investigation-branch"
      #***************************************************
-     cntr += 1
-     
+
+
+     #if cntr <= 105:    #  to skip to a certain record
+     #    continue
+
+
+      
+  
      #------------------------------------
      # these publishers have problems with
      # my code.... 
@@ -85,6 +93,127 @@ for x in organization_data["result"] :
           continue
      if publisher_name == "british-film-institute":
           continue
+     if publisher_name == "british-tourist-authority":
+          continue
+     if publisher_name == "businesslink":
+          continue
+     if publisher_name == "centre-for-ecology-hydrology":
+          continue
+     if publisher_name == "centre-for-environment-fisheries-aquaculture-science":
+          continue
+     if publisher_name == "charnwood-borough-council":
+          continue
+     if publisher_name == "chartered-institute-of-public-finance-and-accountancy":
+          continue    
+     if publisher_name == "collections-trust":
+          continue    
+     if publisher_name == "companies-investigation-branch":
+          continue    
+     if publisher_name == "consumer-focus":
+          continue    
+     if publisher_name == "crawley-borough-council":
+          continue    
+     if publisher_name == "crc-energy-efficiency-scheme":
+          continue    
+     if publisher_name == "cycle-streets":
+          continue    
+     if publisher_name == "defence-academy-of-the-united-kingdom":
+          continue    
+     if publisher_name == "defence-support-group":
+          continue    
+     if publisher_name == "department-for-work-and-pensions":
+          continue    
+     if publisher_name == "department-of-justice":
+          continue    
+     if publisher_name == "driver-and-vehicle-licensing-agency":
+          continue    
+     if publisher_name == "driving-standards-agency":
+          continue    
+     if publisher_name == "east-cheshire-nhs-trust":
+          continue    
+     if publisher_name == "education-funding-agency":
+          continue    
+     if publisher_name == "energy-saving-trust":
+          continue    
+     if publisher_name == "fco-services":
+          continue    
+     if publisher_name == "general-register-office-for-scotland":
+          continue    
+     if publisher_name == "general-teaching-council-for-england":
+          continue    
+     if publisher_name == "government-car-and-despatch-agency":
+          continue    
+     if publisher_name == "great-britain-china-centre":
+          continue    
+     if publisher_name == "hm-inspectorate-of-probation":
+          continue    
+     if publisher_name == "hm-passport-office":
+          continue    
+     if publisher_name == "independent-housing-ombudsman":
+          continue  
+     if publisher_name == "independent-living-fund":
+          continue  
+     if publisher_name == "isle-of-wight-council":
+          continue  
+     if publisher_name == "joint-nature-conservation-committee":
+          continue  
+     if publisher_name == "judicial-appointments-commission":
+          continue  
+     if publisher_name == "judicial-office":
+          continue  
+     if publisher_name == "lake-district-national-park":
+          continue
+     if publisher_name == "learning-and-skills-council-skills-funding-agency":
+          continue
+     if publisher_name == "marine-accident-investigation-branch":
+          continue
+     if publisher_name == "maritime-and-coastguard-agency":
+          continue
+     if publisher_name == "marshall-aid-commemoration-commission":
+          continue
+     if publisher_name == "musgrove-park-hospital":
+          continue
+     if publisher_name == "national-college-for-teaching-and-leadership":
+          continue
+     if publisher_name == "national-employment-savings-trust":
+          continue
+     if publisher_name == "national-health-service":
+          continue
+     if publisher_name == "nhs-bedfordshire":
+          continue
+     if publisher_name == "pensions-ombudsman":
+          continue
+     if publisher_name == "nhs-east-cheshire-ccg":
+          continue
+     if publisher_name == "nhs-liverpool-ccg":
+          continue
+     if publisher_name == "oag":
+          continue
+     if publisher_name == "prisons-and-probation-ombudsman":
+          continue
+     if publisher_name == "public-health-england":
+          continue
+     if publisher_name == "remploy-limited":
+          continue
+     if publisher_name == "royal-borough-of-greenwich":
+          continue
+     if publisher_name == "olympic-delivery-authority":
+          continue
+     if publisher_name == "royal-botanic-gardens-kew":
+          continue
+     if publisher_name == "royal-borough-of-greenwich":
+          continue
+     if publisher_name == "rugby-borough-council":
+          continue
+     if publisher_name == "rural-payments:-agency":
+          continue
+     if publisher_name == "rural-payments-agency":
+          continue
+     if publisher_name == "rsecurity-industry-authority":
+          continue
+
+
+
 
 
      """  foi-web tag missing
@@ -140,7 +269,7 @@ for x in organization_data["result"] :
 
      publisher_email     = publisher_data["result"]["foi-email"]
 
-     publisher_category  = publisher_data["result"]["category"]
+     publisher_category  = ""     #publisher_data["result"]["category"]
      publisher_id        = publisher_data["result"]["id"]
 
      #  Do you want anything else ie.  approval_status, phone numbers, etc. ??
