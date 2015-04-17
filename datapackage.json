@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "title": "UK Gov Organization Spending Data List",
+=======
+  "title": "UK Gov Organization's Spending Data List",
+>>>>>>> origin/master
   "name": "data_gov_publisher_results.",
   "description": "This file was created by scrapping  http://data.gov.uk/api/3/action/organization_list\r\nfor the list of Organizations.  Using the organizations name another query http://data.gov.uk/api/3/action/organization_show?id= + organization name which returns a second page, listing all the publication.  A 3rd query http://data.gov.uk/api/3/action/package_show?id= + package id.  This returns another json formate file with the a key containing a the URL of the data file.",
   "licenses": [
@@ -10,4 +14,8 @@
     }
   ],
   "resources": []
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/master
