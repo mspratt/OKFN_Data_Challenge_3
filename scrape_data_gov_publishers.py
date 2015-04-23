@@ -146,15 +146,15 @@ for x in organization_data["result"] :
      #  does this organisation publish anything?
 
 
-     #if "packages" not in publisher_data["result"]:    #"result""packages" 
-     #     print ("No publications - WHAT?")
-     #     continue
+     if "packages" not in publisher_data["result"]:    #"result""packages" 
+          print ("No publications - WHAT?")
+          continue
 
 
 
 
-     if "id"  in publisher_data["result"]["packages"]:
-          print ("")
+     if "title"  in publisher_data["result"]["packages"]:
+          print ("Great we have packages")
      else:
           print ("there are [result][packages] but it is empty -no title, id - WHAT?")
           #continue
