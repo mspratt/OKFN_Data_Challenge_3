@@ -32,9 +32,14 @@ import sys, os, urllib3, json, html
 outputfile = open("data_gov_publisher_results.csv", 'a')
 printheader = 1  #true
 
+organization_url = "http://data.gov.uk/api/3/action/organization_list"
+organization_url_1 = "http://data.gov.uk/api/3/action/organization_show?id="
+publisher_url  = "http://data.gov.uk/api/3/action/package_show?id="
+
+
 #*********************   get the orgainsation list
 
-url_0 = "http://data.gov.uk/api/3/action/organization_list"
+url_0 = organization_url
 http_0= urllib3.PoolManager()
 page_returned_0 = http_0.request('GET', url_0)
 
@@ -73,14 +78,10 @@ for x in organization_data["result"] :
      #***************************************************
 
 
-     if cntr <= 7:    #  to skip to a certain record
-         continue
+     #if cntr <= 17:    #  to skip to a certain record
+     #    continue
 
-
-      
-  
-
-     url_1 = "http://data.gov.uk/api/3/action/organization_show?id="+ publisher_name
+     url_1 = organization_url_1 + publisher_name
      http_1 = urllib3.PoolManager()
      publisher_returned = http_1.request('GET', url_1)
 
@@ -110,7 +111,7 @@ for x in organization_data["result"] :
         
      #********************************
      # delete the current publisher file
-     os.remove(publisher_name + ".json")     # delete the publisher's source file
+     #os.remove(publisher_name + ".json")     # delete the publisher's source file
 
      #_______________________________
      #  retrieve one-time publisher elements.
@@ -118,12 +119,24 @@ for x in organization_data["result"] :
      publisher_title     = publisher_data["result"]["title"]
      publisher_type      = publisher_data["result"]["type"]
 
-     #publisher_web_site  = publisher_data["result"]["foi-web"]
+
      publisher_web_site  = ""
+     if "foi-web" not in publisher_data:    
+          print ("No foi-web - WHAT?")
+     else: 
+          publisher_web_site  = publisher_data["result"]["foi-web"]
+          
 
      publisher_email     = publisher_data["result"]["foi-email"]
 
-     publisher_category  = ""     #publisher_data["result"]["category"]
+
+     publisher_category  =""
+     if "category" not in publisher_data:    
+          print ("No category - WHAT?")
+     else: 
+          publisher_category  = publisher_data["result"]["category"]
+
+
      publisher_id        = publisher_data["result"]["id"]
 
      #  Do you want anything else ie.  approval_status, phone numbers, etc. ??
@@ -132,7 +145,8 @@ for x in organization_data["result"] :
      #***************************************************
      #  does this organisation publish anything?
 
-     if len(publisher_data["result"]["packages"]) == 0:    #"result""packages" 
+
+     if "packages" not in publisher_data:    #"result""packages" 
           print ("No publications - WHAT?")
           continue
 
@@ -156,16 +170,16 @@ for x in organization_data["result"] :
          print("publisher_returned = ", publisher_returned)   
          print("publisher_type     = ", publisher_type)
 
-         if len(publisher_data["result"]["packages"][cntr_2]["title"])==0:
+         if "title" not in publisher_data:    
+              print ("No title - WHAT?")
               break
 
-         
          #.....................
          #  packets
 
          publisher_package_title = publisher_data["result"]["packages"][cntr_2]["title"]
          publisher_package_id    = publisher_data["result"]["packages"][cntr_2]["id"]
-         publisher_package_link  = "http://data.gov.uk/api/3/action/package_show?id=" + publisher_package_id
+         publisher_package_link  = publisher_url  + publisher_package_id
          publisher_package_name  = publisher_data["result"]["packages"][cntr_2]["name"]
 
          """
@@ -181,7 +195,7 @@ for x in organization_data["result"] :
          #   ie. "b1f2f7be-d024-425f-b6ff-5d8f45d86738"
    
     
-         url_3 = "http://data.gov.uk/api/3/action/package_show?id=" + publisher_package_id
+         url_3 = publisher_url  + publisher_package_id
          http_3= urllib3.PoolManager()
          page_returned_3 = http_3.request('GET', url_3)
 
