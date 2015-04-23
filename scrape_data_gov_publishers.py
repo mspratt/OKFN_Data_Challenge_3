@@ -32,9 +32,9 @@ import sys, os, urllib3, json, html
 outputfile = open("data_gov_publisher_results.csv", 'a')
 printheader = 1  #true
 
-organization_url = "http://data.gov.uk/api/3/action/organization_list"
+organization_url   = "http://data.gov.uk/api/3/action/organization_list"
 organization_url_1 = "http://data.gov.uk/api/3/action/organization_show?id="
-publisher_url  = "http://data.gov.uk/api/3/action/package_show?id="
+publisher_url      = "http://data.gov.uk/api/3/action/package_show?id="
 
 
 #*********************   get the orgainsation list
@@ -63,8 +63,8 @@ os.remove("organization_list.json")
 print("********   loop through publishers   ************")
 cntr=0
 for x in organization_data["result"] :
-     #if cntr > 8:  # get only the first 25 publishers
-     #    break
+     if cntr > 1:  # get only the first xxx publishers
+         break
 
      publisher_name = organization_data["result"][cntr]
      cntr += 1
@@ -121,7 +121,7 @@ for x in organization_data["result"] :
 
 
      publisher_web_site  = ""
-     if "foi-web" not in publisher_data:    
+     if "foi-web" not in publisher_data["result"]:    
           print ("No foi-web - WHAT?")
      else: 
           publisher_web_site  = publisher_data["result"]["foi-web"]
@@ -131,7 +131,7 @@ for x in organization_data["result"] :
 
 
      publisher_category  =""
-     if "category" not in publisher_data:    
+     if "category" not in publisher_data["result"]:    
           print ("No category - WHAT?")
      else: 
           publisher_category  = publisher_data["result"]["category"]
@@ -146,11 +146,49 @@ for x in organization_data["result"] :
      #  does this organisation publish anything?
 
 
-     if "packages" not in publisher_data:    #"result""packages" 
-          print ("No publications - WHAT?")
-          continue
+     #if "packages" not in publisher_data["result"]:    #"result""packages" 
+     #     print ("No publications - WHAT?")
+     #     continue
 
 
+
+
+     if "id"  in publisher_data["result"]["packages"]:
+          print ("")
+     else:
+          print ("there are [result][packages] but it is empty -no title, id - WHAT?")
+          #continue
+
+
+    
+     """
+     if "title" not in publisher_data["result"]["packages"]:    
+          print ("No [result][packages] title - WHAT?")
+          #break
+
+     try:
+          publisher_package_title = publisher_data["result"]["packages"][cntr_2]["title"]
+          print ("try no error")
+     except KeyError:
+          print ("try caught this ERROE")
+          break
+
+     """
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
      #****************************************************
      #  look through the Publisher's site for pointers
      #  to the data, via the publisher_id key
@@ -170,9 +208,7 @@ for x in organization_data["result"] :
          print("publisher_returned = ", publisher_returned)   
          print("publisher_type     = ", publisher_type)
 
-         if "title" not in publisher_data:    
-              print ("No title - WHAT?")
-              break
+
 
          #.....................
          #  packets
